@@ -46,20 +46,14 @@ class EstudiantesPage extends StatelessWidget {
                 mensaje: 'No hay estudiantes registrados',
                 color: Colors.grey,
               ),
-            EstudiantesError(:final mensaje) => Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.error_outline, size: 48, color: Colors.red),
-                    const SizedBox(height: 8),
-                    Text(mensaje, textAlign: TextAlign.center),
-                    const SizedBox(height: 12),
-                    ElevatedButton(
-                      onPressed: () =>
-                          context.read<EstudiantesCubit>().cargarEstudiantes(),
-                      child: const Text('Reintentar'),
-                    ),
-                  ],
+            EstudiantesError(:final mensaje) => MensajeEstado(
+                icono: Icons.error_outline,
+                mensaje: mensaje,
+                color: Colors.red,
+                accion: ElevatedButton(
+                  onPressed: () =>
+                      context.read<EstudiantesCubit>().cargarEstudiantes(),
+                  child: const Text('Reintentar'),
                 ),
               ),
             EstudiantesExito(:final estudiantes) => ListView.builder(
