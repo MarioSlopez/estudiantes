@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/estudiantes_cubit.dart';
 import '../cubit/estudiantes_state.dart';
+import '../widgets/carga_view.dart';
 import '../widgets/estudiante_card.dart';
 import '../widgets/mensaje_estado.dart';
 
@@ -38,9 +39,7 @@ class EstudiantesPage extends StatelessWidget {
                 icono: Icons.school,
                 mensaje: 'Presiona el botón para comenzar',
               ),
-            EstudiantesCarga() => const Center(
-                child: CircularProgressIndicator(),
-              ),
+            EstudiantesCarga() => const CargaView(),
             EstudiantesVacio() => const MensajeEstado(
                 icono: Icons.inbox,
                 mensaje: 'No hay estudiantes registrados',
