@@ -13,7 +13,7 @@ class EstudianteCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: ListTile(
-        leading: CircleAvatar(child: Text('${estudiante.id}')),
+        leading: CircleAvatar(child: Text(estudiante.iniciales)),
         title: Text(
           estudiante.nombre,
           style: const TextStyle(fontWeight: FontWeight.bold),
