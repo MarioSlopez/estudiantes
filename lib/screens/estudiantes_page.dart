@@ -61,10 +61,30 @@ class EstudiantesPage extends StatelessWidget {
                 child: const Text('Reintentar'),
               ),
             ),
-            EstudiantesExito(:final estudiantes) => ListView.builder(
-              itemCount: estudiantes.length,
-              itemBuilder: (context, index) =>
-                  EstudianteCard(estudiante: estudiantes[index]),
+            EstudiantesExito(:final estudiantes) => Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.search),
+                      hintText: 'Buscar por nombre',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onChanged: (texto) =>
+                        context.read<EstudiantesCubit>().filtrar(texto),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: estudiantes.length,
+                    itemBuilder: (context, index) =>
+                        EstudianteCard(estudiante: estudiantes[index]),
+                  ),
+                ),
+              ],
             ),
           };
         },
