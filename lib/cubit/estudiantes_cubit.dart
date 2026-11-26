@@ -16,6 +16,9 @@ class EstudiantesCubit extends Cubit<EstudiantesState> {
   EstudiantesCubit(this._servicio) : super(const EstudiantesInicial());
 
   Future<void> cargarEstudiantes() async {
+    // Si ya se está cargando, no se lanza otra petición.
+    if (state is EstudiantesCarga) return;
+
     emit(const EstudiantesCarga());
 
     try {
