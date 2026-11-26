@@ -3,11 +3,15 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/estudiante.dart';
 import '../services/estudiante_service.dart';
 import 'estudiantes_state.dart';
 
 class EstudiantesCubit extends Cubit<EstudiantesState> {
   final EstudianteService _servicio;
+
+  // Lista completa que llegó de la API, para poder filtrar sin volver a consultar.
+  List<Estudiante> _todos = [];
 
   EstudiantesCubit(this._servicio) : super(const EstudiantesInicial());
 
@@ -16,6 +20,7 @@ class EstudiantesCubit extends Cubit<EstudiantesState> {
 
     try {
       final datos = await _servicio.obtenerEstudiantes();
+      _todos = datos;
 
       if (datos.isEmpty) {
         emit(const EstudiantesVacio());
@@ -45,6 +50,15 @@ class EstudiantesCubit extends Cubit<EstudiantesState> {
     if (actual is! EstudiantesExito) return;
     final lista = [...actual.estudiantes]
       ..sort((a, b) => a.nombre.compareTo(b.nombre));
+    emit(EstudiantesExito(lista));
+  }
+
+  // Muestra solo los estudiantes cuyo nombre contiene el texto escrito.
+  void filtrar(String texto) {
+    final t = texto.toLowerCase().trim();
+    final lista = t.isEmpty
+        ? _todos
+        : _todos.where((e) => e.nombre.toLowerCase().contains(t)).toList();
     emit(EstudiantesExito(lista));
   }
 
