@@ -1,34 +1,45 @@
 import 'dart:convert';
- 
+
 import 'package:http/http.dart' as http;
- 
+
 import '../models/estudiante.dart';
- 
+
 class EstudianteService {
   // Si es true, simula una consulta correcta que devuelve una lista vacía.
   // Sirve para demostrar el estado Vacío.
   final bool simularVacio;
- 
-  const EstudianteService({this.simularVacio = false});
- 
+
+  // Si es true, simula una falla de red.
+  // Sirve para demostrar el estado Error sin activar el modo avión.
+  final bool simularError;
+
+  const EstudianteService({
+    this.simularVacio = false,
+    this.simularError = false,
+  });
+
   Future<List<Estudiante>> obtenerEstudiantes() async {
     if (simularVacio) {
       await Future.delayed(const Duration(seconds: 1));
       return [];
     }
- 
+
+    if (simularError) {
+      await Future.delayed(const Duration(seconds: 1));
+      throw http.ClientException('Sin conexión simulada');
+    }
+
     final respuesta = await http
         .get(Uri.parse('https://jsonplaceholder.typicode.com/users'))
         .timeout(const Duration(seconds: 10));
- 
+
     if (respuesta.statusCode != 200) {
       throw Exception('Error del servidor: ${respuesta.statusCode}');
     }
- 
+
     final List<dynamic> datos = jsonDecode(respuesta.body);
     return datos
         .map((json) => Estudiante.fromJson(json as Map<String, dynamic>))
         .toList();
   }
 }
-
