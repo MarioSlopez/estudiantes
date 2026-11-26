@@ -23,8 +23,14 @@ class EstudiantesPage extends StatelessWidget {
             return Text('Consulta de estudiantes$total');
           },
         ),
-        // Actividad 3: botón para regresar al estado Inicial.
         actions: [
+          IconButton(
+            icon: const Icon(Icons.sort_by_alpha),
+            tooltip: 'Ordenar por nombre',
+            onPressed: () =>
+                context.read<EstudiantesCubit>().ordenarPorNombre(),
+          ),
+          // Actividad 3: botón para regresar al estado Inicial.
           IconButton(
             icon: const Icon(Icons.refresh),
             tooltip: 'Reiniciar',
@@ -36,30 +42,30 @@ class EstudiantesPage extends StatelessWidget {
         builder: (context, state) {
           return switch (state) {
             EstudiantesInicial() => const MensajeEstado(
-                icono: Icons.school,
-                mensaje: 'Presiona el botón para comenzar',
-              ),
+              icono: Icons.school,
+              mensaje: 'Presiona el botón para comenzar',
+            ),
             EstudiantesCarga() => const CargaView(),
             EstudiantesVacio() => const MensajeEstado(
-                icono: Icons.inbox,
-                mensaje: 'No hay estudiantes registrados',
-                color: Colors.grey,
-              ),
+              icono: Icons.inbox,
+              mensaje: 'No hay estudiantes registrados',
+              color: Colors.grey,
+            ),
             EstudiantesError(:final mensaje) => MensajeEstado(
-                icono: Icons.error_outline,
-                mensaje: mensaje,
-                color: Colors.red,
-                accion: ElevatedButton(
-                  onPressed: () =>
-                      context.read<EstudiantesCubit>().cargarEstudiantes(),
-                  child: const Text('Reintentar'),
-                ),
+              icono: Icons.error_outline,
+              mensaje: mensaje,
+              color: Colors.red,
+              accion: ElevatedButton(
+                onPressed: () =>
+                    context.read<EstudiantesCubit>().cargarEstudiantes(),
+                child: const Text('Reintentar'),
               ),
+            ),
             EstudiantesExito(:final estudiantes) => ListView.builder(
-                itemCount: estudiantes.length,
-                itemBuilder: (context, index) =>
-                    EstudianteCard(estudiante: estudiantes[index]),
-              ),
+              itemCount: estudiantes.length,
+              itemBuilder: (context, index) =>
+                  EstudianteCard(estudiante: estudiantes[index]),
+            ),
           };
         },
       ),
