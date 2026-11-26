@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/estudiantes_cubit.dart';
 import '../cubit/estudiantes_state.dart';
 import '../widgets/estudiante_card.dart';
+import '../widgets/mensaje_estado.dart';
 
 class EstudiantesPage extends StatelessWidget {
   const EstudiantesPage({super.key});
@@ -33,14 +34,17 @@ class EstudiantesPage extends StatelessWidget {
       body: BlocBuilder<EstudiantesCubit, EstudiantesState>(
         builder: (context, state) {
           return switch (state) {
-            EstudiantesInicial() => const Center(
-                child: Text('Presiona el botón para comenzar'),
+            EstudiantesInicial() => const MensajeEstado(
+                icono: Icons.school,
+                mensaje: 'Presiona el botón para comenzar',
               ),
             EstudiantesCarga() => const Center(
                 child: CircularProgressIndicator(),
               ),
-            EstudiantesVacio() => const Center(
-                child: Text('No hay estudiantes registrados'),
+            EstudiantesVacio() => const MensajeEstado(
+                icono: Icons.inbox,
+                mensaje: 'No hay estudiantes registrados',
+                color: Colors.grey,
               ),
             EstudiantesError(:final mensaje) => Center(
                 child: Column(
