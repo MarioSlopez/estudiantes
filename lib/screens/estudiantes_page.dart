@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/estudiantes_cubit.dart';
 import '../cubit/estudiantes_state.dart';
+import '../widgets/estudiante_card.dart';
 
 class EstudiantesPage extends StatelessWidget {
   const EstudiantesPage({super.key});
@@ -59,16 +60,8 @@ class EstudiantesPage extends StatelessWidget {
               ),
             EstudiantesExito(:final estudiantes) => ListView.builder(
                 itemCount: estudiantes.length,
-                itemBuilder: (context, index) {
-                  final e = estudiantes[index];
-                  return ListTile(
-                    leading: CircleAvatar(child: Text('${e.id}')),
-                    title: Text(e.nombre),
-                    // Actividad 1: se muestra la ciudad junto al correo.
-                    subtitle: Text('${e.correo}\n${e.ciudad}'),
-                    isThreeLine: true,
-                  );
-                },
+                itemBuilder: (context, index) =>
+                    EstudianteCard(estudiante: estudiantes[index]),
               ),
           };
         },
