@@ -1,17 +1,19 @@
-# practica_estudiantes
+# Práctica Cubit: consulta de estudiantes
 
-A new Flutter project.
+App en Flutter que consulta jsonplaceholder.typicode.com/users y maneja la
+consulta con Cubit (flutter_bloc).
 
-## Getting Started
+## Estados
+Inicial, Carga, Éxito, Vacío y Error.
 
-This project is a starting point for a Flutter application.
+## Estructura
+- models/estudiante.dart: modelo con fromJson e iniciales
+- services/estudiante_service.dart: petición HTTP
+- cubit/estudiantes_state.dart: los cinco estados (sealed + Equatable)
+- cubit/estudiantes_cubit.dart: lógica, ordenar y filtrar
+- screens/estudiantes_page.dart: pantalla con BlocBuilder
+- widgets/: EstudianteCard, MensajeEstado y CargaView
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Ejecutar
+flutter pub get
+flutter run
