@@ -17,7 +17,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Práctica Cubit',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
+      theme: ThemeData(
+        colorSchemeSeed: Colors.teal,
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(centerTitle: true),
+      ),
       home: BlocProvider(
         // Para probar el estado Vacío: EstudianteService(simularVacio: true)
         create: (_) => EstudiantesCubit(const EstudianteService()),
