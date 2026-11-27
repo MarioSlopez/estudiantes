@@ -19,4 +19,4 @@ flutter pub get
 flutter run
 ## 📄 Reporte
 
-[Ver Reporte del rediseño de esrados](https://github.com/MarioSlopez/estudiantes/blob/main/Reporte_Practica_Cubit_Redisenio_Mario_Diego.pdf)
+[Ver Reporte del rediseño de estados](https://github.com/MarioSlopez/estudiantes/blob/main/Reporte_Practica_Cubit_Redisenio_Mario_Diego.pdf)
